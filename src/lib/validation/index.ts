@@ -1,10 +1,17 @@
 import { z } from "zod";
 
 export const SignupValidation = z.object({
-  name: z.string().min(2, { message: "Name too short" }),
-  username: z.string().min(2, { message: "Username too short" }),
-  email: z.string().email(),
-  password: z
-    .string()
-    .min(9, { message: "Password Must be at least 8 characters" }),
+ name: z.string().min(2, { message: "Name too short" }),
+ username: z.string().min(2, { message: "Username too short" }),
+ email: z.string().email(),
+ password: z
+  .string()
+  .min(9, { message: "Password Must be at least 8 characters" }),
+});
+
+export const SigninValidation = z.object({
+ email: z.string().email(),
+ password: z
+  .string()
+  .min(9, { message: "Password Must be at least 8 characters" }),
 });
