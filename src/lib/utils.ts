@@ -5,41 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(date: string): string {
-  const currentTime = new Date(); // Current time
-  const inputTime = new Date(date); // Convert input date string to a Date object
-  const diffInSeconds = Math.floor((currentTime - inputTime) / 1000); // Difference in seconds
-
-  // Calculate differences in various units
-  const seconds = diffInSeconds;
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(days / 365);
-
-  // Return the largest fitting time unit
-  if (seconds < 60) {
-    return "Just now";
-  } else if (minutes < 60) {
-    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-  } else if (hours < 24) {
-    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-  } else if (days < 7) {
-    return `${days} day${days > 1 ? "s" : ""} ago`;
-  } else if (weeks < 4) {
-    return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
-  } else if (months < 12) {
-    return `${months} month${months > 1 ? "s" : ""} ago`;
-  } else {
-    return `${years} year${years > 1 ? "s" : ""} ago`;
-  }
-}
-
-export const checkIsLiked = (likeList: string[], userId: string) => {
-  return likeList.includes(userId);
-};
+export const convertFileToUrl = (file: File) => URL.createObjectURL(file);
 
 export function formatDateString(dateString: string) {
   const options: Intl.DateTimeFormatOptions = {
@@ -58,3 +24,35 @@ export function formatDateString(dateString: string) {
 
   return `${formattedDate} at ${time}`;
 }
+
+//
+export const multiFormatDateString = (timestamp: string = ""): string => {
+  const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
+  const date: Date = new Date(timestampNum * 1000);
+  const now: Date = new Date();
+
+  const diff: number = now.getTime() - date.getTime();
+  const diffInSeconds: number = diff / 1000;
+  const diffInMinutes: number = diffInSeconds / 60;
+  const diffInHours: number = diffInMinutes / 60;
+  const diffInDays: number = diffInHours / 24;
+
+  switch (true) {
+    case Math.floor(diffInDays) >= 30:
+      return formatDateString(timestamp);
+    case Math.floor(diffInDays) === 1:
+      return `${Math.floor(diffInDays)} day ago`;
+    case Math.floor(diffInDays) > 1 && diffInDays < 30:
+      return `${Math.floor(diffInDays)} days ago`;
+    case Math.floor(diffInHours) >= 1:
+      return `${Math.floor(diffInHours)} hours ago`;
+    case Math.floor(diffInMinutes) >= 1:
+      return `${Math.floor(diffInMinutes)} minutes ago`;
+    default:
+      return "Just now";
+  }
+};
+
+export const checkIsLiked = (likeList: string[], userId: string) => {
+  return likeList.includes(userId);
+};
