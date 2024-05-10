@@ -20,6 +20,7 @@ const AllUsers = () => {
       </div>
     );
   }
+
   const shouldShowUsers = users.pages.every(
     (item) => item?.documents.length === 0
   );

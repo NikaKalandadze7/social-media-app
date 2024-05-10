@@ -10,6 +10,7 @@ import {
   deletePost,
   deleteSavedPost,
   getCurrentUser,
+  getFeaturedUsers,
   getInfinitePosts,
   getInfiniteUsers,
   getPostById,
@@ -186,5 +187,11 @@ export const useGetUsers = () => {
       const lastId = lastPage?.documents[lastPage?.documents.length - 1].$id;
       return lastId;
     },
+  });
+};
+export const useGetFeaturedUsers = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USERS],
+    queryFn: getFeaturedUsers,
   });
 };

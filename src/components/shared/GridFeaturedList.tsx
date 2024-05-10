@@ -5,22 +5,21 @@ import { Button } from "../ui/button";
 type GridUserListProps = {
   users: Models.Document[];
 };
-
-const GridUserList = ({ users }: GridUserListProps) => {
+const GridFeaturedList = ({ users }: GridUserListProps) => {
   return (
-    <ul className="user-grid">
+    <ul className="featured-grid">
       {users.map((user) => (
-        <li key={user.$id} className="user-card">
+        <li key={user.$id} className="user-card  ">
           <Link to={`/users/${user.$id}`}>
             <img
               src={user.imageUrl}
               alt="user"
-              className=" object-cover rounded-full w-[90px] h-[90px]"
+              className=" object-cover rounded-full w-[54px] h-[54px]"
             />
           </Link>
-          <p className="line-clamp-1 font-semibold">{user.name}</p>
+          <p className="text-sm  font-semibold">{user.name}</p>
           <p className="text-light-3 small-regular">@{user.username}</p>
-          <Button className="bg-primary-500 rounded-lg max-w-[118px] w-full">
+          <Button className="bg-primary-500 rounded-lg max-w-[74px] w-full">
             Follow
           </Button>
         </li>
@@ -29,4 +28,4 @@ const GridUserList = ({ users }: GridUserListProps) => {
   );
 };
 
-export default GridUserList;
+export default GridFeaturedList;

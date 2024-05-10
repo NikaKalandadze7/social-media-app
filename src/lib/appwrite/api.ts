@@ -329,8 +329,21 @@ export async function getInfiniteUsers({ pageParam }: { pageParam: number }) {
   try {
     const users = await databases.listDocuments(
       appwriteConfig.databaseId,
-      appwriteConfig.postCollectionId,
+      appwriteConfig.userCollectionId,
       queries
+    );
+    if (!users) throw Error;
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function getFeaturedUsers() {
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(6)]
     );
     if (!users) throw Error;
     return users;
