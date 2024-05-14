@@ -162,6 +162,7 @@ export async function getRecentPosts() {
     [Query.orderDesc("$createdAt"), Query.limit(20)]
   );
   if (!posts) throw Error;
+  console.log(22222222, posts);
   return posts;
 }
 
@@ -347,6 +348,25 @@ export async function getFeaturedUsers() {
     );
     if (!users) throw Error;
     return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getSavedPosts({ pageParam }: { pageParam: number }) {
+  const queries: any[] = [Query.limit(20)];
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      queries
+    );
+    if (!posts) throw Error;
+
+    return posts;
   } catch (error) {
     console.log(error);
   }
