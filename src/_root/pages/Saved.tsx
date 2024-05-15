@@ -28,9 +28,11 @@ const Saved = () => {
   return (
     <div className="explore-container">
       <div className="user-container">
-        <h2 className="h3-bold md:h2-bold w-full">All Users</h2>
+        <h2 className="h3-bold md:h2-bold w-full">Saved Posts</h2>
         {shouldShowUsers ? (
-          <p className="text-light-4 mt-10 text-center w-full">End of Users</p>
+          <p className="text-light-4 mt-10 text-center w-full">
+            No Saved Posts
+          </p>
         ) : (
           posts.pages.map((item, index) => (
             <GridSavedPostList key={`page-${index}`} posts={item.documents} />

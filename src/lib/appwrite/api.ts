@@ -162,7 +162,7 @@ export async function getRecentPosts() {
     [Query.orderDesc("$createdAt"), Query.limit(20)]
   );
   if (!posts) throw Error;
-  console.log(22222222, posts);
+
   return posts;
 }
 
@@ -367,6 +367,23 @@ export async function getSavedPosts({ pageParam }: { pageParam: number }) {
     if (!posts) throw Error;
 
     return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function getUserById(userId?: string) {
+  if (!userId) throw Error;
+
+  try {
+    const user = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      userId
+    );
+
+    if (!user) throw Error;
+    console.log(111111, user);
+    return user;
   } catch (error) {
     console.log(error);
   }

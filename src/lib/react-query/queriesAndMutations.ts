@@ -16,6 +16,7 @@ import {
   getPostById,
   getRecentPosts,
   getSavedPosts,
+  getUserById,
   likePost,
   savePost,
   searchPosts,
@@ -199,12 +200,19 @@ export const useGetFeaturedUsers = () => {
 
 export const useGetSavedPosts = () => {
   return useInfiniteQuery({
-    queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
+    queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
     queryFn: getSavedPosts,
     getNextPageParam: (lastPage) => {
       if (lastPage && lastPage.documents.length === 0) return null;
       const lastId = lastPage?.documents[lastPage?.documents.length - 1].$id;
       return lastId;
     },
+  });
+};
+export const useGetUserById = (userId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+    queryFn: () => getUserById(userId),
+    enabled: !!userId,
   });
 };
