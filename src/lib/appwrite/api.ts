@@ -377,7 +377,7 @@ export async function getUserById(userId?: string) {
   try {
     const user = await databases.getDocument(
       appwriteConfig.databaseId,
-      appwriteConfig.postCollectionId,
+      appwriteConfig.userCollectionId,
       userId
     );
 
