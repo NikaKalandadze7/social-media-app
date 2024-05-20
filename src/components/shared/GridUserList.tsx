@@ -11,7 +11,7 @@ const GridUserList = ({ users }: GridUserListProps) => {
     <ul className="user-grid">
       {users.map((user) => (
         <li key={user.$id} className="user-card">
-          <Link to={`/users/${user.$id}`}>
+          <Link to={`/profile/${user.$id}`}>
             <img
               src={user.imageUrl}
               alt="user"

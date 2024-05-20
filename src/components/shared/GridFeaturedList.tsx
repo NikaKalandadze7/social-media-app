@@ -10,7 +10,7 @@ const GridFeaturedList = ({ users }: GridUserListProps) => {
     <ul className="featured-grid">
       {users.map((user) => (
         <li key={user.$id} className="user-card  ">
-          <Link to={`/users/${user.$id}`}>
+          <Link to={`/profile/${user.$id}`}>
             <img
               src={user.imageUrl}
               alt="user"

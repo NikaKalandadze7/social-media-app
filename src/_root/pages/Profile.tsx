@@ -2,7 +2,6 @@ import EditButton from "@/components/shared/EditButton";
 import FollowButton from "@/components/shared/FollowButton";
 import {
   useGetCurrentUser,
-  useGetPostById,
   useGetUserById,
 } from "@/lib/react-query/queriesAndMutations";
 import { Loader } from "lucide-react";
@@ -14,23 +13,43 @@ const Profile = () => {
   const { data: currentUser } = useGetCurrentUser();
   const { data: user, isPending } = useGetUserById(id);
 
+  console.log(user, 11111111);
   return (
     <div className="profile-container">
       {isPending ? (
         <Loader />
       ) : (
-        <div className="profile-inner-container">
-          <div className="flex items-center gap-3">
+        <div>
+          <div className="profile-inner_container">
             <img
               src={user?.imageUrl || "/assets/images/profile-placeholder.svg"}
               alt="profile"
-              className="h-14 w-14 rounded-full"
+              className="h-36 w-36 rounded-full"
             />
-            <div className="flex flex-col">
-              <p className="body-bold"> {user?.name}</p>
-              <p className="small-regular text-light-3">@{user?.username}</p>
+            <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-4">
+                <p className="font-semibold !text-4xl"> {user?.name}</p>
+                <p className="small-regular text-light-3 text-base">
+                  @{user?.username}
+                </p>
+              </div>
+              <div className="flex flex-row gap-8">
+                <p className="flex flex-row gap-2 items-center">
+                  <span className="text-primary-500">{user?.posts.length}</span>
+                  Posts
+                </p>
+                <p className="flex flex-row gap-2 items-center">
+                  <span className="text-primary-500">{user?.posts.length}</span>
+                  Followers
+                </p>
+                <p className="flex flex-row gap-2 items-center">
+                  <span className="text-primary-500">{user?.posts.length}</span>
+                  Following
+                </p>
+              </div>
+              <div>{user?.bio}</div>
             </div>
-            {currentUser?.$id === user?.id ? <EditButton /> : <FollowButton />}
+            {currentUser?.$id === user?.$id ? <EditButton /> : <FollowButton />}
           </div>
         </div>
       )}
